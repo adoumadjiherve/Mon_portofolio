@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mon portofolio personnel</title>
+<style>
+  /* Reset général */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Bloc 1 : Header / Navigation */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #000;
+    padding: 10px 20px;
+    position: relative;
+  }
+  .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #fff;
+  }
+  #menu-toggle {
+    display: none;
+    cursor: pointer;
+  }
+  .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #00ffff;
+    margin: 4px 0;
+    transition: 0.4s;
+  }
+  ul {
+    list-style: none;
+    display: flex;
+  }
+  ul li {
+    margin-left: 20px;
+  }
+  ul li a {
+    text-decoration: none;
+    color: #00ffff;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.3s;
+  }
+  ul li a:hover {
+    color: #ff00ff;
+    transform: scale(1.1);
+  }
+
+  /* Responsive menu burger */
+  @media (max-width: 768px) {
+    #menu-toggle {
+      display: block;
+    }
+    ul {
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background-color: #000;
+      flex-direction: column;
+      width: 200px;
+      display: none;
+    }
+    ul.show {
+      display: flex;
+    }
+    ul li {
+      margin: 15px 0;
+      margin-right: 20px;
+      text-align: right;
+    }
+  }
+
+  /* Bloc 2 : Section d'introduction */
+  .section-hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    padding: 50px 20px;
+    background-color: #ffffff;
+  }
+  .intro-text {
+    flex: 1 1 400px;
+    max-width: 600px;
+    padding: 20px;
+  }
+  .intro-text h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+  .phrase {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+  }
+  .phrase span {
+    color: #00bcd4;
+    font-weight: bold;
+  }
+  .btn {
+    background-color: #00bcd4;
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  .btn:hover {
+    background-color: #0097a7;
+    transform: scale(1.05);
+  }
+  .section-image {
+    flex: 1 1 300px;
+    max-width: 600px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .illustration {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+
+  /* Bloc 3 : À propos */
+  .section-about {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    padding: 50px 20px;
+    background-color: #f0f2f5;
+  }
+  .about-text {
+    flex: 1 1 400px;
+    max-width: 600px;
+    padding: 20px;
+  }
+  .section-about h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #00bcd4;
+  }
+  .about-text p {
+    margin-bottom: 15px;
+    line-height: 1.5;
+  }
+  .about-text a {
+    color: #00bcd4;
+    text-decoration: underline;
+  }
+  #cvBtn {
+    background-color: #00bcd4;
+    color: #fff;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  #cvBtn:hover {
+    background-color: #0097a7;
+    transform: scale(1.05);
+  }
+  .profile-img {
+    flex: 1 1 300px;
+    max-width: 400px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .profile-img img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 3px solid #00bcd4;
+    object-fit: cover;
+  }
+
+  /* Bloc 4 : Projets */
+  .section-projets {
+    padding: 50px 20px;
+    background-color: #fff;
+  }
+  .section-projets h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: #00bcd4;
+  }
+  .projects-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .card {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transform: translateY(-5px);
+  }
+  .card p {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .tech-list {
+    font-size: 0.8em;
+    margin-bottom: 15px;
+  }
+  .card button {
+    background-color: #00bcd4;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+  }
+  .card button:hover {
+    background-color: #0097a7;
+  }
+
+  /* Bloc 5 : Compétences */
+  .section-competences {
+    padding: 40px 20px;
+    background-color: #e0e0e0;
+  }
+  .section-competences h2 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+  .competences {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .categorie {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 300px;
+  }
+  .categorie h3 {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+  }
+  .skill {
+    margin-bottom: 15px;
+  }
+  .skill-name {
+    margin-bottom: 5px;
+    font-size: 0.95em;
+  }
+  .progress-container {
+    background-color: #ddd;
+    border-radius: 10px;
+    height: 20px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background-color: #00bcd4;
+    width: 0;
+    border-radius: 10px 0 0 10px;
+    transition: width 1s ease-in-out;
+  }
+
+  /* Bloc 6 : Contact */
+  .section-contact {
+    padding: 50px 20px;
+    background-color: #000;
+    color: #fff;
+  }
+  .section-contact h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  #contactForm {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  #contactForm input,
+  #contactForm textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #00d2cc;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+  }
+  #contactForm textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  #contactForm button {
+    background-color: #00d2cc;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+  }
+  #contactForm button:hover {
+    background-color: #00b7bf;
+  }
+
+  /* Bloc 7 : Pied de page */
+  footer {
+    background-color: #f0f2f5;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    font-size: 0.9em;
+    color: #000;
+  }
+  footer .left {
+    /* Texte gauche */
+  }
+  footer .right {
+    /* Texte droite */
+  }
+
+</style>
+</head>
+<body>
+<!-- Bloc 1 : Navigation -->
+<nav>
+  <div class="logo">ADOUMADJI NOUDJALBAYE<span style="color:#00ffff;"> HERVE</span></div>
+  <div id="menu-toggle" aria-label="Menu">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+  <ul id="menu">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Bloc 2 : Section d'introduction -->
+<section class="section-hero" id="accueil">
+  <div class="intro-text">
+    <h1>Je suis <span id="prenom">Hervé</span>, Développeur en devenir</h1>
+    <div class="phrase">
+      Passionné par le web et le design !
+    </div>
+    <button class="btn" id="viewProjects">Voir mes projets</button>
+  </div>
+  <div class="section-image">
+    <img src="C:\Users\HERVE NOUDJALBAYE\Pictures\Dev Web OIF\Niveau Débutant\Mon portofolio\image.png" alt="Illustration" class="illustration" />
+  </div>
+</section>
+
+<!-- Bloc 3 : À propos -->
+<section class="section-about" id="apropos">
+  <div class="about-text">
+    <h2>À propos</h2>
+    <p>Je m'appelle <strong>Adoumadji</strong>, passionné par la création de sites web modernes et interactifs.</p>
+    <p>Je suis actuellement étudiant(e) en développement web et je cherche à améliorer mes compétences en JavaScript, HTML et CSS.</p>
+    <p>J'adore transformer mes idées en projets concrets et expérimenter avec les nouvelles technologies.</p>
+    <button class="btn" id="cvBtn">Télécharger mon CV</button>
+  </div>
+  <div class="profile-img">
+    <img src="C:\Users\HERVE NOUDJALBAYE\Pictures\Dev Web OIF\Niveau Débutant\Mon portofolio\photo.png" alt="Photo de profil" />
+  </div>
+</section>
+
+<!-- Bloc 4 : Projets -->
+<section class="section-projets" id="projets">
+  <h2>Mes Projets</h2>
+  <div class="projects-container">
+    <!-- Carte 1 -->
+    <div class="card">
+      <p>Un mini-jeu interactif en JavaScript qui utilise des événements DOM.</p>
+      <div class="tech-list">#html, #css, #js</div>
+      <button class="btn" onclick="voirProjet()">Voir</button>
+    </div>
+    <!-- Carte 2 -->
+    <div class="card">
+      <p>Un mini-jeu interactif en JavaScript qui utilise des événements DOM.</p>
+      <div class="tech-list">#html, #css, #js</div>
+      <button class="btn" onclick="voirProjet()">Voir</button>
+    </div>
+    <!-- Carte 3 -->
+    <div class="card">
+      <p>Un mini-jeu interactif en JavaScript qui utilise des événements DOM.</p>
+      <div class="tech-list">#html, #css, #js</div>
+      <button class="btn" onclick="voirProjet()">Voir</button>
+    </div>
+  </div>
+</section>
+
+<!-- Bloc 5 : Compétences -->
+<section class="section-competences" id="competences">
+  <h2>Mes Compétences</h2>
+  <div class="competences">
+    <!-- Soft Skills -->
+    <div class="categorie" id="softSkills">
+      <h3>Soft Skills</h3>
+      <div class="skill">
+        <div class="skill-name">Gestion de projet</div>
+        <div class="progress-container">
+          <div class="progress-bar" data-percent="70%"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">Résolution de problème</div>
+        <div class="progress-container">
+          <div class="progress-bar" data-percent="65%"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">Adaptabilité</div>
+        <div class="progress-container">
+          <div class="progress-bar" data-percent="80%"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Hard Skills -->
+    <div class="categorie" id="hardSkills">
+      <h3>Hard Skills</h3>
+      <div class="skill">
+        <div class="skill-name">HTML</div>
+        <div class="progress-container">
+          <div class="progress-bar" data-percent="90%"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">CSS</div>
+        <div class="progress-container">
+          <div class="progress-bar" data-percent="85%"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">JavaScript</div>
+        <div class="progress-container">
+          <div class="progress-bar" data-percent="75%"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name">VS Code</div>
+        <div class="progress-container">
+          <div class="progress-bar" data-percent="90%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Bloc 6 : Contact -->
+<section class="section-contact" id="contact">
+  <h2>Vous avez un projet en tête ? N'hésitez pas à me contacter</h2>
+  <form id="contactForm">
+    <input type="text" placeholder="Votre prénom" required />
+    <input type="text" placeholder="Votre nom" required />
+    <input type="text" placeholder="Votre sujet" required />
+    <textarea placeholder="Écrivez votre message..." required></textarea>
+    <button type="submit">Envoyer</button>
+  </form>
+</section>
+
+<!-- Bloc 7 : Pied de page -->
+<footer>
+  <div class="left">
+    Designed by <span id="footer-prenom">Hervé</span> with HTML CSS JS
+  </div>
+  <div class="right">
+    Tous droits réservés - 2025
+  </div>
+</footer>
+
+<script>
+  // Menu burger
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('menu');
+  toggle.addEventListener('click', () => {
+    menu.classList.toggle('show');
+  });
+
+  // bouton voir projets
+  document.getElementById('viewProjects').addEventListener('click', () => {
+    alert('Vous allez voir mes projets !');
+  });
+  // bouton CV
+  document.getElementById('cvBtn').addEventListener('click', () => {
+    alert('Lien vers le fichier CV');
+  });
+  // voir projet
+  function voirProjet() {
+    alert("Vous allez voir un projet !");
+  }
+  // Progression
+  window.onload = () => {
+    document.querySelectorAll('.progress-bar').forEach(bar => {
+      const percent = bar.getAttribute('data-percent');
+      setTimeout(() => {
+        bar.style.width = percent;
+      }, 300);
+    });
+  };
+  // Contact form
+  document.getElementById('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Votre message a été envoyé !');
+    e.target.reset();
+  });
+  // Dynamique prénom
+  document.getElementById('footer-prenom').innerText = 'Hervé';
+</script>
+</body>
+</html>
